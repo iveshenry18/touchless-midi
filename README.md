@@ -1,6 +1,8 @@
 # Touchless MIDI
 Scripts for running a distance sensor as a MIDI Continuous Controller on a Raspberry Pi
 
+**Disclaimer: the code in this repo was written for a University project and as such is not designed for portability**
+
 This repo consists of a couple of a Bash script, a couple Python scripts, and a Pure Data patch for running a distance sensor as a MIDI controller on a Raspberry Pi, which can communicate over a network via RTP MIDI with another machine.
 
 ## Required Software
