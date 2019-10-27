@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#necessary for some reason
+sudo modprobe snd-virmidi
+
+#start pd receiver patch
+sudo pd -alsamidi /home/pi/Documents/TouchlessMIDI/receiver.pd &
+sleep 1
+
+#start aconnectgui
+aconnectgui &
+sleep 1
+
+#get port values (first virtual midi, pd, digital piano)
+VRM="$( aconnect -l | grep -m 1 'Virtual Raw MIDI' | awk {'print $2'} )"
+PDclient="$( aconnect -l | grep -m 1 'Pure Data' | awk {'print $2'} )"
+Piano="$( aconnect -l | grep -m 1 'Digital Piano' | awk {'print $2'} )"
+
+#create alsa connections
+aconnect ${PDclient}1 ${VRM}0 #pd midi-out -> first open vrmidi
+aconnect ${Piano}0 ${PDclient}0 #digital piano out -> pd midi-in
+
+#get first virtual midi device hw: val
+aod="$( amidi -l | grep -m 1 'Virtual Raw MIDI' | awk {'print $2'} )"
+
+#create temp conf
+sudo cp /etc/raveloxmidi.conf ~/TEMPraveloxmidi.conf
+
+#add alsa.input_device with hw: val
+sudo chmod ugo=rw ~/TEMPraveloxmidi.conf
+sudo echo "alsa.input_device = ${aod}" >> ~/TEMPraveloxmidi.conf
+
+#run raveloxmidi with TEMPconf
+sudo raveloxmidi -c ~/TEMPraveloxmidi.conf &
+sleep 1
+
+#focus back on terminal window
+wmctrl -a pi
+
+#run python script controlling sensor
+if [ -n "$1" ]; then
+	python3 /home/pi/Documents/TouchlessMIDI/control_MIDI.py -c $1
+else
+	python3 /home/pi/Documents/TouchlessMIDI/control_MIDI.py
+fi
+
+#run until user ends sensing
+
+#remove temp file, kill related processes
+echo "Cleaning up"
+sudo rm ~/TEMPraveloxmidi.conf
+pdpid="$( ps -A | grep pd$ | awk {'print $1'} )"
+acgpid="$( ps -A | grep aconnectgui$ | awk {'print $1'} )"
+rmpid="$( ps -A | grep raveloxmidi$ | awk {'print $1'} )"
+sudo kill $pgpid $acgpid $rmpid
