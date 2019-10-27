@@ -5,6 +5,7 @@ This repo consists of a couple of a Bash script, a couple Python scripts, and a 
 
 ## Required Software
 The required software includes but may not be limited to:
+- PIGPIO
 - ALSA
 - aconnectgui
 - [raveloxmidi](https://github.com/ravelox/pimidi/)
