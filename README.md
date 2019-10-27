@@ -15,6 +15,8 @@ The required software includes but may not be limited to:
 This project was designed to run on a Raspberry Pi 4 Model B and an HC-SR05 distance sensor module.
 The circuit used is very similar to what is described [here](https://pimylifeup.com/raspberry-pi-distance-sensor/) and [here](https://tutorials-raspberrypi.com/raspberry-pi-ultrasonic-sensor-hc-sr04/) (huge thanks to these creators for their tutorials).
 
+## Files
+
 ### distance_sensor.py
 An object-oriented adaptation of the scripts provided by the aforementioned tutorials. This assumes the TRIGGER is wired to GPIO pin 4, and the ECHO is wired to GPIO pin 27 (BCM), but can be fairly easily adjusted to suit other wiring options.
 
