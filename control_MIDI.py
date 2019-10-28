@@ -90,7 +90,7 @@ class MIDI_Distance_Controller():
 
     def control_MIDI(self):
         try:
-            print('Printing MIDI')
+            print('Controlling MIDI')
             while(True):
                 dist = self.d.distance()
                 if dist <= self.ceiling and dist >= self.floor:
@@ -105,13 +105,13 @@ class MIDI_Distance_Controller():
     def send2Pd(self, message = ''):
         try:
             self.s.send((str(message) + ';').encode())
+            print("Sent MIDI Value %s  \r" %(message), end="")
         except UnicodeDecodeError as err:
             print("FAILED to send value %s,\nerror: %s" %(message, err))
-        print("Sent MIDI Value %s  \r" %(message), end="")
 
     def test_MIDI(self):
         try:
-            print('Sending MIDI')
+            print('Sensing MIDI')
             while(True):
                 dist = self.d.distance()
                 if dist <= self.ceiling and dist >= self.floor:

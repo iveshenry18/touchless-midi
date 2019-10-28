@@ -3,13 +3,13 @@
 #necessary for some reason
 sudo modprobe snd-virmidi
 
-#start pd receiver patch
-sudo pd -alsamidi /home/pi/Documents/TouchlessMIDI/receiver.pd &
-sleep 1
+#start pd receiver patch (nogui)
+sudo pd -alsamidi -nogui -noverbose /home/pi/Documents/TouchlessMIDI/receiver.pd &
+sleep 0.2
 
-#start aconnectgui
-aconnectgui &
-sleep 1
+#start aconnectgui (not necessary!)
+#aconnectgui &
+#sleep 1
 
 #get port values (first virtual midi, pd, digital piano)
 VRM="$( aconnect -l | grep -m 1 'Virtual Raw MIDI' | awk {'print $2'} )"
@@ -32,10 +32,10 @@ sudo echo "alsa.input_device = ${aod}" >> ~/TEMPraveloxmidi.conf
 
 #run raveloxmidi with TEMPconf
 sudo raveloxmidi -c ~/TEMPraveloxmidi.conf &
-sleep 1
+sleep 0.2
 
-#focus back on terminal window
-wmctrl -a pi
+#focus back on terminal window (no longer necessary)
+#wmctrl -a pi
 
 #run python script controlling sensor
 if [ -n "$1" ]; then
@@ -50,6 +50,6 @@ fi
 echo "Cleaning up"
 sudo rm ~/TEMPraveloxmidi.conf
 pdpid="$( ps -A | grep pd$ | awk {'print $1'} )"
-acgpid="$( ps -A | grep aconnectgui$ | awk {'print $1'} )"
+#acgpid="$( ps -A | grep aconnectgui$ | awk {'print $1'} )"
 rmpid="$( ps -A | grep raveloxmidi$ | awk {'print $1'} )"
-sudo kill $pgpid $acgpid $rmpid
+sudo kill $pgpid $rmpid #$acgpid
