@@ -20,8 +20,9 @@ Piano="$( aconnect -l | grep -m 1 'Digital Piano' | awk {'print $2'} )"
 aconnect ${PDclient}1 ${VRM}0 #pd midi-out -> first open vrmidi
 aconnect ${Piano}0 ${PDclient}0 #digital piano out -> pd midi-in
 
-#get first virtual midi device hw: val
+#get first virtual midi device hw: val and local IP
 aod="$( amidi -l | grep -m 1 'Virtual Raw MIDI' | awk {'print $2'} )"
+lip="$( hostname -I | awk {'print $1'} )"
 
 #create temp conf
 sudo cp /etc/raveloxmidi.conf ~/TEMPraveloxmidi.conf
@@ -29,6 +30,7 @@ sudo cp /etc/raveloxmidi.conf ~/TEMPraveloxmidi.conf
 #add alsa.input_device with hw: val
 sudo chmod ugo=rw ~/TEMPraveloxmidi.conf
 sudo echo "alsa.input_device = ${aod}" >> ~/TEMPraveloxmidi.conf
+sudo echo "network.bind_address=${lip}" >> ~/TEMPraveloxmidi.conf
 
 #run raveloxmidi with TEMPconf
 sudo raveloxmidi -c ~/TEMPraveloxmidi.conf &
