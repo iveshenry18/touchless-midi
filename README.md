@@ -9,7 +9,6 @@ This repo consists of a couple of a Bash script, a couple Python scripts, and a 
 The required software includes but may not be limited to:
 - PIGPIO
 - ALSA
-- aconnectgui
 - [raveloxmidi](https://github.com/ravelox/pimidi/)
 - wmctrl
 - Pure Data
