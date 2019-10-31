@@ -34,7 +34,7 @@ A stub of the configuration file for raveloxmidi. This is copied and has values 
 ### control_midi
 A master Bash script to run all programs in a single command. It launches the receiver.pd in the background, then creates the necessary midi connections (from the output of receiver.pd to the first available Virtual Raw MIDI channel, as well as from an option Digital Piano to the input to receiver.pd). It then launches raveloxmidi with the configuration file (temporarily modified to handle possible variations in the Virtual Raw MIDI channel and the IP address of the device), and finally runs the control_MIDI.py. This script can be run with one positional argument for the Continuous Controller number (defaults to 11). After the Python script is stopped by the user, the other processes are killed. **To be symlinked to `~/bin/control_midi`**
 
-**Note: this uses absolute paths, designed such that this repository is under ~/Documents/TouchlessMIDI**
+**Note: this uses absolute paths, designed such that this repository is under /home/pi/Documents/TouchlessMIDI**
 
 ## Thanks
 This project wouldn't have been possible without the help of countless resources and similar open-source projects. Specific shoutouts go to [Dave Kelly](https://www.raveloxprojects.com/blog/?p=496) and [Pi My Life Up](https://pimylifeup.com/raspberry-pi-distance-sensor/) for the resources they provided.
