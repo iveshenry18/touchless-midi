@@ -3,3 +3,4 @@ old/*
 __pycache__/*
 implementation_notes.txt
 get_weather.py
+temp/*

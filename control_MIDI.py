@@ -48,6 +48,7 @@ class MIDI_Distance_Controller():
         #self.no_input = self.get_no_input()
         self.ceiling = self.get_ceiling()
         self.floor = self.get_floor()
+        self.rate = (self.ceiling / self.d.sonic_speed) * 2.1
         self.region_size = self.ceiling - self.floor
         self.multiplier = 127/self.region_size
         #print(self.no_input, self.ceiling, self.floor, self.region_size)
@@ -143,7 +144,7 @@ def getArgs():
 if __name__ == '__main__':
     try:
         args = getArgs()
-        m = MIDI_Distance_Controller(args.cc_value)
+        m = MIDI_Distance_Controller(args.cc_value, rate=0.12)
         m.calibrate()
         if m.initialize_sockets() >=0:
             m.control_MIDI()

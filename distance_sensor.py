@@ -74,10 +74,10 @@ class Distance_Sensor:
 if __name__ == '__main__':
     try:
         d = Distance_Sensor()
-        sleep_time = .12
+        sleep_time = 0.05
         while True:
             dist = d.distance()
-            print ("Measured Distance = %.1f cm" % dist)
+            print ("Measured Distance = %.1f cm  \r" % dist, end="")
             time.sleep(sleep_time)
  
         # Reset by pressing CTRL + C
