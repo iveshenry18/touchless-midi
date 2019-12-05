@@ -8,12 +8,13 @@ import argparse
 
 class MIDI_Distance_Controller():
     
-    def __init__(self, cc=11, rate=0.12):
+    def __init__(self, cc=11, rate=0.12, quant=5):
         if cc=='ask':
             self.cc = input("MIDI CC value: ")
         else:
             self.cc = cc
         self.rate=rate
+        self.quant=quant
     
     def initialize_sockets(self, port = 3000, shortport=3001):
         self.s = self.open_socket(port)
@@ -92,11 +93,14 @@ class MIDI_Distance_Controller():
     def control_MIDI(self):
         try:
             print('Controlling MIDI')
+            last = -self.quant
             while(True):
                 dist = self.d.distance()
                 if dist <= self.ceiling and dist >= self.floor:
                     midi_val = math.floor((dist-self.floor)*self.multiplier)
-                    self.send2Pd(midi_val)
+                    if not (last-self.quant < midi_val < last+self.quant):
+                        self.send2Pd(midi_val)
+                        last = midi_val
                 time.sleep(self.rate)
             
         except KeyboardInterrupt:
