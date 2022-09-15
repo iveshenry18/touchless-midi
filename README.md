@@ -1,6 +1,7 @@
 # Touchless MIDI
 
 ### [Demo Video](https://youtu.be/bi90eQmDAUA)
+[![Touchless MIDI Demo Video](https://i9.ytimg.com/vi/bi90eQmDAUA/mq3.jpg?sqp=COTQi5kG&rs=AOn4CLAeZv-hCW4OT-ro3c583VeUQEMp5g)](https://youtu.be/bi90eQmDAUA)
 
 Scripts for running a distance sensor as a MIDI Continuous Controller on a Raspberry Pi
 
